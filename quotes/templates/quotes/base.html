@@ -3,9 +3,29 @@
       Author: Fibie Kalis (fibie@bu.edu) 9/13/2026 
       HTML file for quotes home page -->
 
+{% load static %}
 <html>
      <head>
           <title> Meryl Streep Quote of the Day </title>
+          <link rel="stylesheet" href="{% static 'styles.css' %}">
      </head>
-     
+
+     <body>
+     <header>
+          <h1>Quotes</h1>
+
+          <nav>
+               <li><a href="{% url 'quote' %}">Home</a></li>
+               <li><a href="{% url 'quotes/quote' %}">Random Quote</a></li>
+
+          </nav>
+     </header>
+
+     <main>
+          {% block content %}
+          {% endblock %}
+     </main>
+
+     </body>
+
 </html>

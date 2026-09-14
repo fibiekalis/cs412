@@ -9,6 +9,7 @@ from . import views
 # URL patterns specific to the quotes app
 urlpatterns = [
     # URL pattern for the main page with the image and quote 
-    path(r'', views.quote, name="quote"),
+    path(r'', views.quote, name="home"),
+    path(r'quote', views.quote, name="quote")
 
 ]
