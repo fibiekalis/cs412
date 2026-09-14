@@ -36,7 +36,7 @@ def quote(request):
     random_quote = random.choice(quotes)
     random_image = random.choice(images)
 
-    display = {
+    context = {
         'quote' : random_quote,     # Randomly picks one quote from the list
         'image' : random_image      # Randomly picks one image from the list 
     }
@@ -44,4 +44,13 @@ def quote(request):
 
     template_name = 'quotes/quote.html'
 
-    return render(request, template_name, display)
+    return render(request, template_name, context)
+
+def show_all(request):
+    context = {
+        'quotes' : quotes,
+        'images' : images,
+    }
+
+    # Sends the entire lists of quotes and images to the template 
+    return render(request, 'quotes/show_all.html', context)

@@ -1,0 +1,26 @@
+<!-- quotes/templates/quotes/show_all.html -->
+ <!-- File: show_all.html 
+      Author: Fibie Kalis (fibie@bu.edu) 9/14/2026 
+      HTML file for quotes home page -->
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+<h1>All quotes by Meryl Streep</h1>
+
+<!-- For loop to process the list of quotes -->
+{% for quote in quotes %}
+    <p> "{{ quote }}"</p>
+
+{% endfor %} 
+
+<h1>All images of Meryl Streep</h1>
+
+<!-- For loop to process the list of images -->
+{% for image in images %}
+    <img src="{{ image }}" alt="Meryl Streep" width="200">
+{% endfor %}
+
+{% endblock %}
+
