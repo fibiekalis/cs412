@@ -1,0 +1,16 @@
+<!-- quotes/templates/quotes/quote.html -->
+ <!-- File: quote.html 
+      Author: Fibie Kalis (fibie@bu.edu) 9/14/2026 
+      HTML file for the quote page -->
+
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+<h1>Meryl Streep Quote of the Day</h1>
+
+<img src="{{ image }}" alt="Meryl Streep">      <!-- image sent from views.py-->
+
+<h2>"{{ quote }}"</h2>      <!-- quote sent from views.py -->
+
+{% endblock %}
