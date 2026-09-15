@@ -23,7 +23,15 @@ quotes = [
 
 # List of images (URLs as strings)
 images = [
-    "https://media.newyorker.com/photos/59097660ebe912338a377be8/1:1/w_1304,h_1304,c_limit/Schulman-Meryl-Streeps-Twenties1.jpg"
+    "https://media.newyorker.com/photos/59097660ebe912338a377be8/1:1/w_1304,h_1304,c_limit/Schulman-Meryl-Streeps-Twenties1.jpg",
+    "https://media.vanityfair.com/photos/65020ad02a9368c9bb4657a2/1:1/w_1327,h_1327,c_limit/mamma-mia.jpg",
+    "https://media.vanityfair.com/photos/576c585744d93e6e4482bb27/4:3/w_1200%2Cc_limit/meryl-streep-devil-wears-prada.jpg",
+    "https://i.pinimg.com/1200x/df/ff/84/dfff84efee85713a1dc6095cded5612b.jpg",
+    "https://i.pinimg.com/736x/20/5c/2e/205c2e5fdf1b4d2739f69966eb6d2063.jpg",
+    "https://i.pinimg.com/736x/df/8c/9d/df8c9d31c13b82244e970fba3852d31d.jpg",
+    "https://i.pinimg.com/1200x/90/15/48/901548892117ef215850ea43e9e0d4e8.jpg",
+    "https://i.pinimg.com/1200x/d5/93/61/d593610c83218babb55ae96ff2e47fec.jpg"
+
 ]
 
 
@@ -36,6 +44,7 @@ def quote(request):
     random_quote = random.choice(quotes)
     random_image = random.choice(images)
 
+    # A dict of context variables (key-value pairs)
     context = {
         'quote' : random_quote,     # Randomly picks one quote from the list
         'image' : random_image      # Randomly picks one image from the list 
@@ -54,3 +63,9 @@ def show_all(request):
 
     # Sends the entire lists of quotes and images to the template 
     return render(request, 'quotes/show_all.html', context)
+
+def about(request):
+    context = {
+
+    }
+    return render(request, 'quotes/about.html', context)

@@ -12,11 +12,12 @@
 
      <body>
      <header>
-          <h1>Quotes</h1>
 
           <nav>
-               <li><a href="{% url 'home' %}">Home</a></li>
+               <li><a href="{% url ' ' %}"></a></li>
                <li><a href="{% url 'quote' %}">Random Quote</a></li>
+               <li><a href="{% url 'show_all' %}">Show All</a></li>
+               <li><a href="{% url 'about' %}">About</a></li>
 
           </nav>
      </header>
@@ -25,6 +26,8 @@
           {% block content %}
           {% endblock %}
      </main>
+
+     <footer>Web application created by Fibie Kalis, Computer Science student at Boston University.</footer>
 
      </body>
 
