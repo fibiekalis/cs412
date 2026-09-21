@@ -1,0 +1,113 @@
+<!-- restaurant/templates/restaurant/order.html -->
+<!-- File: main.html 
+     Author: Fibie Kalis (fibie@bu.edu) 9/19/2026 
+     HTML file for the food ordering page, will display the order form -->
+
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+
+<div>
+    <h1>Place an Order</h1>
+    <form action="{% url 'submit' %}" method="POST"></form>
+    {% csrf_token %}
+
+    <h2>Menu</h2>
+    <!-- Item 1 -->
+    <div>
+       <input type="checkbox" name="items" value="curiousgeorge">
+       Curious George - $8
+       <p>Vanilla+PB froyo, cashews, banana, whip cream</p> 
+    </div>
+
+    <!-- Item 2 -->
+    <div>
+        <input type="checkbox" name="items" value="turtle">
+        Turtle - $8
+        <p>Vanilla froyo, hot fudge, caramel, toasted pecans</p>
+     </div>
+
+     <!-- Item 3 -->
+     <div>
+        <input type="checkbox" name="items" value="strawberry">
+        Strawberry - $8
+        <p>Strawberry froyo, strawberries, whip cream, sprinkles</p>
+     </div>
+    
+     <!-- Item 4 -->
+     <div>
+        <input type="checkbox" name="items" value="original">
+        Original Froyo - $4
+
+        <br>
+        <p>Choose your toppings:</p>
+        <label>
+            <input type="checkbox" name="toppings" value="Chocolate chips">
+            Chocolate chips ($1.00)
+        </label>
+
+        <label>
+            <input type="checkbox" name="toppings" value="Sprinkles">
+            Sprinkles ($1.00)
+        </label>
+
+        <label>
+            <input type="checkbox" name="toppings" value="Reese's pieces">
+            Reese's pieces ($1.00)
+        </label>
+
+        <label>
+            <input type="checkbox" name="toppings" value="Oreo cookie pieces">
+            Oreo cookie pieces ($1.00)
+        </label>
+
+        <label>
+            <input type="checkbox" name="toppings" value="Strawberries">
+            Strawberries ($1.00)
+        </label>
+
+        <label>
+            <input type="checkbox" name="toppings" value="Banana">
+            Banana ($1.00)
+        </label>
+
+        <label>
+            <input type="checkbox" name="toppings" value="Honey">
+            Honey ($1.00)
+        </label>
+
+        <label>
+            <input type="checkbox" name="toppings" value="Whip cream">
+            Whip cream ($1.00)
+        </label>
+     </div>
+
+     <!-- Daily Special -->
+     <div>
+        <input type="checkbox" name="items" value="{{ daily_special_name }}">
+        <p>Daily special:</p>
+        {{ daily_special_name }} - ${{ daily_special_price }}
+        <p>{{ daily_special_info }}</p>
+     </div>
+
+     <!-- Special Instructions textbox -->
+     <h2>Special Instructions</h2>
+     <textarea name="special_instructions" rows="3" cols="40"></textarea>
+
+    <!-- Customer Info -->
+    <h2>Customer Information</h2>
+
+    <div>
+        Name: <input type="text" name="name">
+        Phone Number: <input type="text" name="phone">
+        Email: <input type="email" name="email">
+    </div>
+
+    <br>
+    
+    <input type="submit" value="Place Order!">
+
+</form>
+</div>
+
+{% endblock %}

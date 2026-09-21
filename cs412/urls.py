@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('hw/', include('hw.urls')),
     path('quotes/', include('quotes.urls')), #Connecting quotes/urls.py to main urls.py for A1
+    path('formdata/', include('formdata.urls')), # module2 ex.
+    path('restaurant/', include('restaurant.urls')),    # A2 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

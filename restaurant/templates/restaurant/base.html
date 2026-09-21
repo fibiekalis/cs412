@@ -1,0 +1,33 @@
+<!-- restaurant/templates/restaurant/base.html -->
+ <!-- File: base.html 
+      Author: Fibie Kalis (fibie@bu.edu) 9/17/2026 
+      HTML file providing headers, navigation for the page, and including style info -->
+
+      {% load static %}
+      <html>
+           <head>
+                <title> Froyo World! </title>
+                <link rel="stylesheet" href="{% static 'A1.css' %}">
+           </head>
+      
+           <body>
+           <header>
+      
+                <nav>
+                     <li><a href="{% url ' ' %}"></a></li>
+                     <li><a href="{% url 'show_form' %}">Order form</a></li>
+      
+                </nav>
+           </header>
+      
+           <main>
+                {% block content %}
+                {% endblock %}
+           </main>
+      
+           <footer>Web application created by Fibie Kalis, Computer Science student at Boston University.</footer>
+      
+           </body>
+      
+      </html>
+      
