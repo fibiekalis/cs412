@@ -20,6 +20,7 @@ def main(request):
     }
     return render(request, template_name, context)
 
+    # List of specials that can be selected for the daily special based on the day of the week
 specials = [
     {   'name': 'Kit Kat',
         'price': '8.50',
@@ -87,6 +88,20 @@ def submit(request):
         toppings = request.POST.getlist('toppings')
         special_instructions = request.POST['special_instructions']
 
+        # Calculate the total price 
+
+        total_price = 0
+        for item in items:
+            if item == 'original':
+                total_price += 4
+            elif item == 'Kit Kat' or 'Birthday cake' or 'Smore' or 'Caramel Apple' or 'Peanut butter' or 'Berry' or 'Mint chip':
+                total_price += 8.5 
+            else:
+                total_price += 8
+        
+        for topping in toppings:
+            total_price += 1
+
         # Create context variables for use in template
         context = {
             'name': name,
@@ -95,5 +110,6 @@ def submit(request):
             'items': items,
             'toppings': toppings,
             'special_instructions': special_instructions,    
+            'total_price': total_price,
         }
     return render(request, template_name, context)
