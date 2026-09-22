@@ -1,0 +1,272 @@
+/* General page styling */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fffaf7;
+    color: #3d3542;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    }
+    
+    /* Header */
+    
+    header {
+    background-color: #f7c8d8;
+    padding: 20px 40px;
+    text-align: center;
+    }
+    
+    header h1 {
+    margin: 0;
+    color: #3d3542;
+    font-family: Georgia, serif;
+    font-size: 32px;
+    }
+    
+    nav {
+    margin-top: 12px;
+    }
+    
+    nav a {
+    color: #3d3542;
+    text-decoration: none;
+    margin: 0 14px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.2s ease;
+    }
+    
+    nav a {
+    color: #ffffff;
+    }
+    
+    /* Main content */
+    
+    main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 25px;
+    }
+    
+    h1, h2, h3 {
+    font-family: Georgia, serif;
+    color: #4b3f54;
+    }
+    
+    h1 {
+    font-size: 38px;
+    margin-bottom: 25px;
+    }
+    
+    h2 {
+    font-size: 26px;
+    margin-top: 35px;
+    }
+    
+    h3 {
+    font-size: 20px;
+    }
+    
+    /* Menu */
+    
+    .menu-item {
+    background-color: #ffffff;
+    border: 2px solid #f1d9e2;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 15px 0;
+    transition: 0.2s ease;
+    }
+    
+    .menu-item {
+    border-color: #d7bde2;
+    transform: translateY(-2px);
+    }
+    
+    .menu-item label {
+    font-weight: bold;
+    cursor: pointer;
+    }
+    
+    .menu-item p {
+    margin: 8px 0 0 25px;
+    color: #6b6170;
+    }
+    
+    /* Checkboxes */
+    
+    input[type="checkbox"],
+    input[type="radio"] {
+    accent-color: #c58bc7;
+    width: 17px;
+    height: 17px;
+    margin-right: 8px;
+    }
+    
+    /* Form fields */
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    margin-top: 6px;
+    margin-bottom: 18px;
+    border: 1px solid #d8cbd8;
+    border-radius: 9px;
+    background-color: #ffffff;
+    color: #3d3542;
+    font-size: 15px;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+    outline: none;
+    border-color: #c58bc7;
+    box-shadow: 0 0 0 3px #f1e2f2;
+    }
+    
+    textarea {
+    min-height: 100px;
+    resize: vertical;
+    }
+    
+    /* Form sections */
+    
+    .form-section {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    margin: 25px 0;
+    border: 1px solid #f0dfe7;
+    }
+    
+    .form-section label {
+    font-weight: 600;
+    }
+    
+    /* Daily special */
+    
+    .daily-special {
+    background-color: #e8f3df;
+    border: 2px solid #c8dfb8;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 20px 0;
+    }
+    
+    .daily-special h3 {
+    margin-top: 0;
+    }
+    
+    /* Buttons */
+    
+    input[type="submit"],
+    button {
+    background-color: #c58bc7;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+    }
+    
+    input[type="submit"],
+    button {
+    background-color: #a96dac;
+    transform: translateY(-1px);
+    }
+    
+    /* Order Now button */
+    
+    .order-button {
+    display: inline-block;
+    background-color: #f19c79;
+    color: white;
+    text-decoration: none;
+    padding: 13px 28px;
+    border-radius: 25px;
+    font-weight: bold;
+    margin-top: 15px;
+    }
+    
+    .order-button {
+    background-color: #df805c;
+    }
+    
+    /* Confirmation page */
+    
+    .confirmation {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 35px;
+    border: 1px solid #f0dfe7;
+    box-shadow: 0 5px 20px rgba(75, 63, 84, 0.08);
+    }
+    
+    .confirmation .total {
+    background-color: #fff0d9;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 25px;
+    }
+    
+    .confirmation .ready-time {
+    background-color: #e8f3df;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-top: 15px;
+    }
+    
+    /* Footer */
+    
+    footer {
+    margin-top: 60px;
+    padding: 25px;
+    background-color: #4b3f54;
+    color: white;
+    text-align: center;
+    font-family: Georgia, serif;
+    }
+    
+    footer p {
+    margin: 0;
+    }
+    
+    /* Mobile */
+    
+    @media (max-width: 600px) {
+    
+    header {
+        padding: 18px 20px;
+    }
+    
+    main {
+        margin: 25px auto;
+        padding: 0 15px;
+    }
+    
+    h1 {
+        font-size: 30px;
+    }
+    
+    nav a {
+        margin: 0 7px;
+    }
+    
+    .form-section,
+    .confirmation {
+        padding: 20px;
+    }
+    
+    }

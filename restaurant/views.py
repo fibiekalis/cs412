@@ -25,31 +25,31 @@ def main(request):
 
     # List of specials that can be selected for the daily special based on the day of the week
 specials = [
-    {   'name': 'Kit Kat',
+    {   'name': 'Kit Kat 🍫 ',
         'price': '8.50',
         'info': 'Vanilla froyo, Kit Kat pieces, chocolate fudge'},
     
-    {   'name': 'Birthday cake',
+    {   'name': 'Birthday cake 🧁 ',
         'price': '8.50',
         'info': 'Vanilla froyo, sprinkles, birthday cake pieces, whip cream'},
     
-    {   'name': 'Smore',
+    {   'name': 'Smore 🏕️ ',
         'price': '8.50',
         'info': 'Vanilla froyo, mini marshmallows, chocolate chips, graham crackers'},
     
-    {   'name': 'Caramel Apple',
+    {   'name': 'Caramel Apple 🍏 ',
         'price': '8.50',
         'info': 'Vanilla froyo, apple pieces, caramel, cinnamon'},
     
-    {   'name': 'Peanut butter',
+    {   'name': 'Peanut butter 🥜 ',
         'price': '8.50',
         'info': 'Chocolate froyo, peanut butter, Reeses pieces'},
     
-    {   'name': 'Berry',
+    {   'name': 'Berry 🫐 ',
         'price': '8.50',
         'info': 'Mixed berry froyo, strawberries, blueberries, honey'},
     
-    {   'name': 'Mint chip',
+    {   'name': 'Mint chip 🍃 ',
         'price': '8.50',
         'info': 'Mint chip froyo, chocolate chips, chocolate fudge, Oreo cookie pieces'},
 ]
@@ -109,6 +109,7 @@ def submit(request):
         # Random minutes between 30-60
         random_min = random.randint(30,60)
         readytime = ctime + (random_min * 60)
+        readytime = time.strftime('%I:%M %p', time.localtime(readytime))
 
         # Create context variables for use in template
         context = {
@@ -119,6 +120,7 @@ def submit(request):
             'toppings': toppings,
             'special_instructions': special_instructions,    
             'total_price': total_price,
-            'readytime': time.ctime(readytime),
+            'readytime': readytime,
+            
         }
         return render(request, template_name, context)
