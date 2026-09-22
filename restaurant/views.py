@@ -6,6 +6,9 @@
 from django.shortcuts import render
 from datetime import date
 
+import time     # for readytime
+import random 
+
 # Create your views here.
 
 main_image = "https://substackcdn.com/image/fetch/$s_!L0Wj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F370e9f41-1e54-4528-a158-efca4f64bf1f_4284x3301.jpeg"
@@ -89,18 +92,23 @@ def submit(request):
         special_instructions = request.POST['special_instructions']
 
         # Calculate the total price 
-
         total_price = 0
         for item in items:
-            if item == 'original':
+            if item == 'Original Froyo':
                 total_price += 4
-            elif item == 'Kit Kat' or 'Birthday cake' or 'Smore' or 'Caramel Apple' or 'Peanut butter' or 'Berry' or 'Mint chip':
+            elif item in ['Kit Kat', 'Birthday cake', 'Smore', 'Caramel Apple', 'Peanut butter', 'Berry', 'Mint chip']:
                 total_price += 8.5 
             else:
                 total_price += 8
         
         for topping in toppings:
             total_price += 1
+        
+        # Generate ready time
+        ctime = time.time()
+        # Random minutes between 30-60
+        random_min = random.randint(30,60)
+        readytime = ctime + (random_min * 60)
 
         # Create context variables for use in template
         context = {
@@ -111,5 +119,6 @@ def submit(request):
             'toppings': toppings,
             'special_instructions': special_instructions,    
             'total_price': total_price,
+            'readytime': time.ctime(readytime),
         }
-    return render(request, template_name, context)
+        return render(request, template_name, context)
