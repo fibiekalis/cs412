@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'quotes', # A1
     'formdata', # module2 ex.
     'restaurant', # A2
+    'blog',  # module3 ex.
+    'mini_insta',   # A3
 ]
 
 MIDDLEWARE = [
