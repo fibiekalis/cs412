@@ -1,0 +1,41 @@
+<!-- mini_insta/templates/mini_insta/show_profile.html -->
+ <!-- File: show_profile.html 
+      Author: Fibie Kalis (fibie@bu.edu) 9/29/2026 
+      HTML file for mini_insta to show one profile page -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<main class="grid-container">
+
+    <article class="featured">
+        {% if profile.profile_image_url %}
+        <img src="{{ profile.profile_image_url }}" alt="{{ profile.display_name }}">
+        {% endif %}
+
+        <div>
+            <strong>@{{ profile.username }}</strong>
+            <h1>{{ profile.display_name }}</h1>
+            <p>
+                {{ profile.bio_text }}
+            </p>
+            <hr>
+            <p>
+                <strong>Posts: </strong>
+                <br>
+                <strong>Followers: </strong>
+                <br>
+                <strong>Following: </strong>
+            </p>
+
+            <h3>Posts</h3>
+            <p>tbd</p>
+
+            <p>
+                <strong>Joined on: {{ profile.join_date }}</strong>
+            </p>
+        </div>
+
+    </article>
+</main>
+{% endblock %}

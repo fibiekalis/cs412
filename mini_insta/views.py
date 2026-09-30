@@ -3,7 +3,7 @@
 # Views file to support the mini_insta application
 
 from django.shortcuts import render
-from django.views.generic import ListView 
+from django.views.generic import ListView, DetailView 
 
 from .models import Profile
 
@@ -13,3 +13,9 @@ class ProfileListView(ListView):
     model = Profile
     template_name = "mini_insta/show_all_profiles.html"
     context_object_name = "profiles"    # plural bc it will take many instances of Profile
+
+class ProfileDetailView(DetailView):
+    '''Display a single profile.'''
+    model = Profile
+    template_name = "mini_insta/show_profile.html"  # indicates which template to use to display the profile
+    context_object_name = "profile"     # singular as we're only displaying one profile
