@@ -1,0 +1,31 @@
+<!-- mini_insta/templates/mini_insta/base.html -->
+ <!-- File: base.html 
+      Author: Fibie Kalis (fibie@bu.edu) 9/28/2026 
+      HTML file for mini_insta home page -->
+
+{% load static %}
+<html>
+    <head>
+        <title>Mini Instagram</title>
+        <link rel="stylesheet" href="{% static 'A2.css'%}">
+    </head>
+    <body>
+        <header>
+            <h1>Mini Instagram!</h1>
+
+            <nav>
+                <ul>
+                    <li><a href="{% url 'show_all_profiles' %}">Profiles</a></li>
+                </ul>
+            </nav>
+        </header>
+
+    {% block content%}
+    {% endblock %}
+
+        <footer>
+            <p>Mini Instagram</p>
+        </footer>
+
+    </body>
+</html>

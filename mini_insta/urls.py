@@ -3,8 +3,9 @@
 # Description: file containing all the URL patterns for the 'mini_insta' django app 
 
 from django.urls import path
+from .views import ProfileListView
 
 urlpatterns = [
-   
+   path('', ProfileListView.as_view(), name="show_all_profiles"),
 
 ]

@@ -1,0 +1,31 @@
+<!-- mini_insta/templates/mini_insta/show_all_profiles.html -->
+ <!-- File: show_all_profiles.html 
+      Author: Fibie Kalis (fibie@bu.edu) 9/28/2026 
+      HTML file for mini_insta show all page -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>All Instagram Profiles</h2>
+
+<main class="grid-container">
+
+    <!--For loop to iterate through all profiles-->
+    <!--For each profile, display the name, username, and image-->
+    {% for profile in profiles %}
+    <article>
+        <div>
+            <h3>{{ profile.display_name }}</h3>
+            <strong>@{{ profile.username }}</strong>
+        </div>
+
+        {% if profile.profile_image_url %}
+            <img src="{{ profile.profile_image_url }}" alt="@{{ profile.username }}'s profile picture">
+        {% endif %}
+
+    </article>
+    {% endfor %}
+    
+</main> 
+{% endblock %}
