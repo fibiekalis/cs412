@@ -34,8 +34,38 @@
             <p>
                 <strong>Joined on: {{ profile.join_date }}</strong>
             </p>
+            <hr>
         </div>
 
     </article>
+
+    <section class="profile-posts">
+        <h2>Posts</h2>
+
+        {% for post in profile.get_all_posts %}   <!--Calls the accessor method--> 
+        <article class="post">
+            {% with photos=post.get_all_photos %}        <!--post.get_all_photos returns all photos belonging to that post-->
+                {% if photos %}
+
+                    <img src="{{ photos.0.image_url }}"        
+                    alt="Photo by {{profile.display_name}}">      <!--photos returns the QuerySet from post.get_all_photos
+                                                                    .0 gets the first photo, and .image_url gets the image url-->
+
+                {% else %}
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/022/059/000/small_2x/no-image-available-icon-vector.jpg" alt="No image">
+                {% endif %}
+            {% endwith %}
+
+            <div>
+                <p>{{ post.caption }}</p>
+                <small>{{ post.timestamp }}</small>
+                <h3>
+                    <a href="{% url 'show_post' post.pk %}">View Post</a>
+                </h3>
+            </div>
+        </article>
+        {% endfor %}
+
+    </section>
 </main>
 {% endblock %}

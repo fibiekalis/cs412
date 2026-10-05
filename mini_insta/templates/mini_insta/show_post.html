@@ -1,0 +1,33 @@
+<!-- mini_insta/templates/mini_insta/show_post.html -->
+ <!-- File: show_post.html 
+      Author: Fibie Kalis (fibie@bu.edu) 10/5/2026 
+      HTML file for mini_insta to show one post -->
+
+      {% extends 'mini_insta/base.html' %}
+
+      {% block content %}
+
+      <main class="profile-page">
+        <article>
+
+            <div class="profile-posts">
+                {% for photo in post.get_all_photos %}
+                    <img src="{{ photo.image_url }}" alt="Photo by {{ profile.display_name }}">
+                {% endfor %}
+
+            </div>
+
+            <h2>{{ post.caption }}</h2>     <!--Displays the caption-->
+            <h3>{{ post.timestamp }}</h3>   <!--Displays the time the post was posted-->
+
+            <p>
+                <a href="{% url 'show_profile' post.profile.pk %}">
+                    Return to {{ post.profile.display_name }}'s profile
+                </a>
+                
+            </p>
+
+        </article>
+
+      </main>
+      {% endblock %}

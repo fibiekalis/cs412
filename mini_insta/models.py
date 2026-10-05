@@ -21,3 +21,42 @@ class Profile(models.Model):
         '''Returns a string representation of this Profile model instance'''
         return f'{self.display_name} (@{self.username})'
             # will display: name (@username)
+    
+    def get_all_posts(self):
+        '''Accessor method to find and return all Posts for for a given Profile '''
+        posts = Post.objects.filter(profile=self).order_by('-timestamp')
+        return posts    # returns a QuerySet with Posts for this profile
+
+
+
+class Post(models.Model):
+    '''Models the data attributes of an Instagram post'''
+
+    # Defined data attributes of the Post object
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)  # Creates one-to-many relationship, 
+                                                                    # CASCADE indicates when Profile is deleted all profile Posts also deleted
+    timestamp = models.DateTimeField(auto_now=True)     # time at which this post was created/saved
+    caption = models.TextField(blank=True)
+
+    # Method to return a string representation of the Post object 
+    def __str__(self):
+        return f'@{self.profile.username} {self.caption}'
+    
+    def get_all_photos(self):
+        '''Accessor method to find and return all Photos for for a given Post '''
+        photos = Photo.objects.filter(post=self).order_by('timestamp')
+        return photos    # returns a QuerySet with Photos for this Post
+
+    
+class Photo(models.Model):
+    '''Models the data attributes of an image associated with a Post'''
+
+    # Defined data attributes of the Photo object
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)    # Indicates relationship to the Post the photo is associated with
+    image_url = models.URLField(blank=True)     # Valid URL image 
+    timestamp = models.DateTimeField(auto_now=True)     # Time at which this photo was created/saved
+
+    # Method to return a string representation of the Photo object 
+    def __str__(self):
+        return f'Photo for {self.post}'
+
