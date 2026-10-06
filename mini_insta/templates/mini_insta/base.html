@@ -17,6 +17,9 @@
                 <ul>
                     <li><a href="{% url 'show_all_profiles' %}">Profiles</a></li>
                 </ul>
+                {% if profile %}      <!--Only show create post navigation when profile is in the context data-->
+                    <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+                {% endif %}
             </nav>
         </header>
 
