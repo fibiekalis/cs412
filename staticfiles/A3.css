@@ -171,6 +171,15 @@ main {
     border-top: 1px solid #e1e4e8;
 }
 
+.profile-posts img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
 .profile-posts h3 {
     font-size: 20px;
 }
