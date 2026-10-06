@@ -73,10 +73,20 @@ class CreatePostView(CreateView):
         form.instance.profile = profile     # set the FK
         # delegate the work to the superclass method form_valid
         savedPost = super().form_valid(form)
+
         # Get image_url from the submission
-        image_url = self.request.POST['image_url']
+        # image_url = self.request.POST['image_url']
+
+        #Get the uploaded image files
+        files = self.request.FILES.getlist('files')
+
         # Create the Photo for this Post
-        Photo.objects.create(post=self.object, image_url=image_url)
+        # Photo.objects.create(post=self.object, image_url=image_url)
+
+        # Create and save the Photo objects with a loop
+        for file in files:
+            Photo.objects.create(post=self.object, image_file=file)
+
 
         return savedPost
 

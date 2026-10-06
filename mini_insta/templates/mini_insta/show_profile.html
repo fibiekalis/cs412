@@ -47,7 +47,7 @@
             {% with photos=post.get_all_photos %}        <!--post.get_all_photos returns all photos belonging to that post-->
                 {% if photos %}
 
-                    <img src="{{ photos.0.image_url }}"        
+                    <img src="{{ photos.0.get_image_url }}"        
                     alt="Photo by {{profile.display_name}}">      <!--photos returns the QuerySet from post.get_all_photos
                                                                     .0 gets the first photo, and .image_url gets the image url-->
 

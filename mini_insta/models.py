@@ -55,8 +55,20 @@ class Photo(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)    # Indicates relationship to the Post the photo is associated with
     image_url = models.URLField(blank=True)     # Valid URL image 
     timestamp = models.DateTimeField(auto_now=True)     # Time at which this photo was created/saved
+    image_file = models.ImageField(blank=True)          # Refers to an image file stored in the Django media directory
+
+    # Accessor method, returns URL to the image
+    def get_image_url(self):
+        if self.image_url: 
+            # Use URL if it exists
+            return self.image_url
+        else:
+            return self.image_file.url
 
     # Method to return a string representation of the Photo object 
     def __str__(self):
-        return f'Photo for {self.post}'
+        if self.image_url:
+            return f'Photo for {self.post} from URL'
+        else:
+            return f'Photo for {self.post} from file'
 

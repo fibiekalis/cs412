@@ -27,4 +27,4 @@ urlpatterns = [
     path('restaurant/', include('restaurant.urls')), # A2 
     path('blog/', include('blog.urls')),    # module3 ex.
     path('mini_insta/', include('mini_insta.urls')), # A3 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,7 +12,8 @@
 
             <div class="profile-posts">
                 {% for photo in post.get_all_photos %}
-                    <img src="{{ photo.image_url }}" alt="Photo by {{ profile.display_name }}">
+                    <!--get_image_url handles both types of photos (URL or file)-->
+                    <img src="{{ photo.get_image_url }}" alt="Photo by {{ post.profile.display_name }}">                
                 {% endfor %}
 
             </div>
