@@ -31,10 +31,8 @@ class Profile(models.Model):
     def get_followers(self):
         '''Returns a list  of Profiles who follow this Profile'''
         follows = Follow.objects.filter(profile=self)
-        for follow in follows:
-            followers = [follow.follower_profile]
-        
-        return followers 
+        followers = [follow.follower_profile for follow in follows]
+        return followers
     
     def get_num_followers(self):
         '''Returns the number of followers for this profile'''
@@ -47,11 +45,9 @@ class Profile(models.Model):
     
     def get_following(self):
         '''Returns a list of profiles this Profile follows'''
-        follows = Follow.object.filter(follower_profile=self)
+        follows = Follow.objects.filter(follower_profile=self)
 
-        for follow in follows:
-            following = [follow.profile]
-
+        following = [follow.profile for follow in follows]
         return following
     
     def get_num_following(self):
@@ -87,6 +83,16 @@ class Post(models.Model):
         '''Accessor method to find and return all Photos for for a given Post '''
         photos = Photo.objects.filter(post=self).order_by('timestamp')
         return photos    # returns a QuerySet with Photos for this Post
+    
+    def get_all_comments(self):
+        '''Accessor method that returns all comments associated with this Post'''
+        comments = Comment.objects.filter(post=self).order_by('timestamp')
+        return comments 
+    
+    def get_likes(self):
+        '''Accessor method that returns all likes associated with the Post'''
+        likes = Like.objects.filter(post=self)
+        return likes
 
     
 class Photo(models.Model):
@@ -129,4 +135,28 @@ class Follow(models.Model):
         '''Returns a string representation of this Follow'''
 
         return f'{self.follower_profile} follows {self.profile}'
+    
+class Comment(models.Model):
+    '''A model for a Profile commenting on a Post'''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
+    timestamp = models.DateTimeField(auto_now=True)
+    # Comment text
+    text = models.TextField()
+    
+    def __str__(self):
+        '''Returns a String representation of the Comment'''
+        return f'{self.profile} commented on {self.post}: {self.text}'
+
+class Like(models.Model):
+    '''A model that represents a Profile liking a Post'''
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='likes')
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''Returns a String representation of the Like'''
+        return f'{self.profile} liked {self.post}'
+    
+
 

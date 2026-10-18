@@ -18,8 +18,26 @@
 
             </div>
 
+            <!--Number of likes-->
+            <h3>Likes: {{ post.get_likes.count }}</h3>
             <h2>{{ post.caption }}</h2>     <!--Displays the caption-->
             <h3>{{ post.timestamp }}</h3>   <!--Displays the time the post was posted-->
+
+            <!--Display all comments-->
+            <section class="post-comments">
+                <h3>Comments:</h3>
+                {% for comment in post.get_all_comments %}
+                    <article>
+                        <p>
+                            <strong>{{ comment.profile.display_name }}:</strong>
+                            {{ comment.text }}
+                        </p>
+                        <small>{{ comment.timestamp }}</small>
+                    </article>
+                    {% empty %}
+                        <p>This post has no comments yet</p>
+                    {% endfor %}
+            </section>
 
             <!-- Link to update this post -->
             <p>

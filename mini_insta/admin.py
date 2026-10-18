@@ -5,9 +5,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Profile, Post, Photo, Follow
+from .models import Profile, Post, Photo, Follow, Comment, Like
 admin.site.register(Profile)
     # Allows creation of profiles through /admin/
 admin.site.register(Post)
 admin.site.register(Photo)
 admin.site.register(Follow)
+admin.site.register(Comment)
+admin.site.register(Like)
