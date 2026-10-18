@@ -3,7 +3,7 @@
 # Views file to support the mini_insta application
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import *
 from .models import *
 from django.urls import reverse 
@@ -97,7 +97,38 @@ class UpdateProfileView(UpdateView):
     form_class = UpdateProfileForm
     template_name = "mini_insta/update_profile_form.html"
 
+class DeletePostView(DeleteView):
+    '''View to delete a Post'''
+    model = Post 
+    template_name = "mini_insta/delete_post_form.html"
 
+    def get_context_data(self, **kwargs):
+        # normal context for from DeleteView
+        context = super().get_context_data(**kwargs)
+        # Post being deleted:
+        post = self.get_object()
+
+        context['post'] = post
+        context['profile'] = post.profile
+        return context 
+    
+    def get_success_url(self):
+        # Return to the profile from which the post was deleted 
+        post = self.get_object()
+
+        # profile's primary key for returning to 
+        profile_pk = post.profile.pk 
+        return reverse('show_profile', kwargs={'pk': profile_pk})
+
+class UpdatePostView(UpdateView):
+    '''View for updating an existing post '''
+    model = Post 
+    form_class = UpdatePostForm 
+    template_name = "mini_insta/update_post_form.html"
+
+    def get_success_url(self):
+        '''Redirect to the just updated post'''
+        return reverse('show_post', kwargs={'pk': self.object.pk})
 
 
        

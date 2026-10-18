@@ -1,0 +1,29 @@
+<!-- mini_insta/templates/mini_insta/update_post_form.html -->
+ <!-- File: update_post_form.html 
+      Author: Fibie Kalis (fibie@bu.edu) 10/17/2026 
+      HTML file that displays the post that will be updated-->
+
+        {% extends 'mini_insta/base.html' %}
+
+        {% block content %}
+        <h2>Update Post</h2>
+        <p>{{ post.caption }}</p>
+
+        <!-- form to update post caption -->
+         <form method="POST">
+            {% csrf_token %}
+
+            <p>
+                <h3>Caption:</h3>
+                {{ form.caption }}
+            </p>
+
+            <input type="submit" value="Save Changes">
+         </form>
+
+         <!-- form to cancel and redirect to post page -->
+          <form action="{% url 'show_post' post.pk %}" method="GET">
+            <input type="submit" value="Cancel">
+          </form>
+        
+        {% endblock %}

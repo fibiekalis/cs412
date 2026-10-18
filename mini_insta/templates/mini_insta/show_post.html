@@ -21,6 +21,14 @@
             <h2>{{ post.caption }}</h2>     <!--Displays the caption-->
             <h3>{{ post.timestamp }}</h3>   <!--Displays the time the post was posted-->
 
+            <!-- Link to update this post -->
+            <p>
+                <a href="{% url 'update_post' post.pk %}">Update</a>
+            </p>
+            <!-- Link to delete this post -->
+            <p>
+                <a href="{% url 'delete_post' post.pk %}">Delete</a>
+            </p>
             <p>
                 <a href="{% url 'show_profile' post.profile.pk %}">
                     Return to {{ post.profile.display_name }}'s profile
