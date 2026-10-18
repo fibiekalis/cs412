@@ -1,0 +1,68 @@
+<!-- mini_insta/templates/mini_insta/show_feed.html -->
+ <!-- File: show_feed.html 
+      Author: Fibie Kalis (fibie@bu.edu) 10/18/2026 
+      Displays each post in the feed  -->
+    
+      {% extends 'mini_insta/base.html' %}
+
+      {% block content %}
+
+      <main class="profile-page">
+        <h1>Post Feed</h1>
+        {% for post in profile.get_post_feed %}
+
+            <article class="feed-post">
+                <!--Profile photo and post's account name-->
+                <div class="feed-author">
+                    <img src="{{ post.profile.profile_image_url }}" alt="{{ post.profile.display_name }}" class="profile-image">
+
+                    <h3>
+                        <a href="{% url 'show_profile' post.profile.pk %}">
+                            {{ post.profile.display_name }}
+                        </a>
+                    </h3>
+                </div>
+
+                <!--Display the photos of the post in order-->
+                {% with photos=post.get_all_photos %}
+                    {% if photos %}
+                        <img src="{{ photos.0.get_image_url }}" alt="by {{ post.profile.display_name }}" class="feed-photo">
+                    {% endif %}
+                {% endwith %}
+
+                <p>{{ post.caption }}</p>
+                <p>Likes: {{ post.get_likes.count }}</p>
+
+                <section class="feed-comments">
+                    <h4>Comments:</h4>
+                    {% for comment in post.get_all_comments %}
+                    <p>
+                        <strong>{{ comment.profile.display_name }}:</strong>
+                        {{ comment.text }}
+                    </p>
+                    {% empty %}
+                        <p>This post has no comments yet</p>
+                    {% endfor %}
+                </section>
+
+                <!--Link to the post-->
+                <p>
+                    <a href="{% url 'show_post' post.pk %}">View Post</a>
+                </p>
+
+            </article>
+            <hr>
+
+        {% empty %}
+            <p>No posts on your current feed. Follow friends to view their posts!</p>
+        {% endfor %}
+
+        <!--Link back to the profile-->
+        <p>
+            <a href="{% url 'show_profile' profile.pk %}">
+                Return to {{ profile.display_name }}'s profile
+            </a>
+        </p>
+    
+      </main>
+      {% endblock %}

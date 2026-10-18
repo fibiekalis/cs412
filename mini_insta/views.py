@@ -141,7 +141,15 @@ class ShowFollowingDetailView(DetailView):
     template_name = "mini_insta/show_following.html"
     context_object_name = "profile"
 
-    
+class ShowFeedView(DetailView):
+    '''Displays the feed for a profile'''
+    model = Profile
+    # retrieve Profile from pk in URL
+    template_name = "mini_insta/show_feed.html"
+    context_object_name = "profile"
+
+
+
 
 
 

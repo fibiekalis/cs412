@@ -58,11 +58,17 @@ class Profile(models.Model):
         for follow in following:
             count += 1
         return count
-
     
     def get_absolute_url(self):
         '''Return the URL for this Profile's detail page.'''
         return reverse('show_profile', kwargs={'pk': self.pk})
+    
+    def get_post_feed(self):
+        '''Returns the posts of this profiles following, ordered by the most recent post first'''
+        following = self.get_following()
+        # filter only includes the posts by those in following
+        posts = Post.objects.filter(profile__in=following).order_by('-timestamp')
+        return posts 
 
 
 
