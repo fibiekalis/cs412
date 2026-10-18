@@ -3,6 +3,7 @@
 # Description: file with classes to define the data objects for mini_insta application
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Profile(models.Model):
@@ -26,6 +27,10 @@ class Profile(models.Model):
         '''Accessor method to find and return all Posts for for a given Profile '''
         posts = Post.objects.filter(profile=self).order_by('-timestamp')
         return posts    # returns a QuerySet with Posts for this profile
+    
+    def get_absolute_url(self):
+        '''Return the URL for this Profile's detail page.'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
 
 
 

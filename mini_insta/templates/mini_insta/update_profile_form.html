@@ -1,0 +1,42 @@
+<!-- mini_insta/templates/mini_insta/update_profile_form.html -->
+ <!-- File: update_profile_form.html 
+      Author: Fibie Kalis (fibie@bu.edu) 10/15/2026 
+      HTML file for mini_insta to update a Profile -->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    <p>
+        <h3>Display Name:</h3>
+        {{ form.display_name }}
+    </p>
+
+    <p>
+        <h3>Profile Image URL:</h3>
+        {{ form.profile_image_url }}
+    </p>
+
+    <p>
+        <h3>Bio:</h3>
+        {{ form.bio_text }}
+    </p>
+
+    <!-- Link to the form for editing this profile -->
+     <p>
+        <a href="{% url 'update_profile' profile.pk %}">
+            Update Profile
+        </a>
+     </p>
+
+    <input type="submit" value="Save Changes">
+</form>
+
+<form action="{% url 'show_profile' profile.pk %}" method="GET">
+    <input type="submit" value="Cancel">
+</form>
+
+{% endblock %}

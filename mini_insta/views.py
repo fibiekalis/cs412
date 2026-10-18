@@ -3,7 +3,7 @@
 # Views file to support the mini_insta application
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView 
 from .forms import *
 from .models import *
 from django.urls import reverse 
@@ -89,6 +89,13 @@ class CreatePostView(CreateView):
 
 
         return savedPost
+    
+class UpdateProfileView(UpdateView):
+    '''View for updating an existing Profile'''
+
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = "mini_insta/update_profile_form.html"
 
 
 
