@@ -1,0 +1,18 @@
+<!-- mini_insta/templates/mini_insta/search.html -->
+ <!-- File: search.html 
+      Author: Fibie Kalis (fibie@bu.edu) 10/18/2026 
+      HTML file for the page where users enter their search -->
+
+      {% extends 'mini_insta/base.html' %}
+
+      {% block content %}
+
+      <h2>Mini Instagram Search</h2>
+
+      <form method="GET" action="{% url 'search' profile.pk %}">
+        <label for="query">Search Profiles and Posts:</label>
+        <textarea name="query" id="query" rows="2"></textarea>
+        <input type="submit" value="Search"> 
+      </form>
+
+      {% endblock %}

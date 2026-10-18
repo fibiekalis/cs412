@@ -20,6 +20,7 @@
                         <li><a href="{% url 'show_feed' profile.pk %}">Home</a></li>
                         <li><a href="{% url 'show_profile' profile.pk %}">My Profile</a></li>
                         <li><a href="{% url 'create_post' profile.pk %}"></a>Create Post</li>
+                        <li><a href="{% url 'search' profile.pk %}">Search</a></li>
                     {% endif %}
                 </ul>
             </nav>
