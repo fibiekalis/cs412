@@ -28,6 +28,42 @@ class Profile(models.Model):
         posts = Post.objects.filter(profile=self).order_by('-timestamp')
         return posts    # returns a QuerySet with Posts for this profile
     
+    def get_followers(self):
+        '''Returns a list  of Profiles who follow this Profile'''
+        follows = Follow.objects.filter(profile=self)
+        for follow in follows:
+            followers = [follow.follower_profile]
+        
+        return followers 
+    
+    def get_num_followers(self):
+        '''Returns the number of followers for this profile'''
+        follows = Follow.objects.filter(profile=self)
+
+        count = 0
+        for follow in follows:
+            count += 1
+        return count
+    
+    def get_following(self):
+        '''Returns a list of profiles this Profile follows'''
+        follows = Follow.object.filter(follower_profile=self)
+
+        for follow in follows:
+            following = [follow.profile]
+
+        return following
+    
+    def get_num_following(self):
+        '''Returns number of profiles this Profile follows'''
+        following = Follow.objects.filter(follower_profile=self)
+
+        count = 0
+        for follow in following:
+            count += 1
+        return count
+
+    
     def get_absolute_url(self):
         '''Return the URL for this Profile's detail page.'''
         return reverse('show_profile', kwargs={'pk': self.pk})
@@ -76,4 +112,21 @@ class Photo(models.Model):
             return f'Photo for {self.post} from URL'
         else:
             return f'Photo for {self.post} from file'
+        
+class Follow(models.Model):
+    '''Encapsulates the idea of an edge connecting two nodes within the social network
+        One profile following another profile'''
+    
+    # Profile being followed "publisher"
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile')
+    # Which profile is doing the following "subscriber"
+    follower_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='follower_profile')
+
+    # Time at which the follower began following the other profile
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''Returns a string representation of this Follow'''
+
+        return f'{self.follower_profile} follows {self.profile}'
 

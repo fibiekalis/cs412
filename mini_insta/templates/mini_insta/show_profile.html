@@ -20,13 +20,18 @@
                 {{ profile.bio_text }}
             </p>
             <hr>
-            <p>
-                <strong>Posts: </strong>
-                <br>
-                <strong>Followers: </strong>
-                <br>
-                <strong>Following: </strong>
-            </p>
+            <div class="follow-info">
+                <p>
+                    <a href="{% url 'show_followers' profile.pk %}">
+                        Followers: {{ profile.get_num_followers }}
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url 'show_following' profile.pk %}">
+                        Following: {{ profile.get_num_following }}
+                    </a>
+                </p>
+            </div>
 
             <h3>Posts</h3>
             <p>tbd</p>

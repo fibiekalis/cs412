@@ -1,0 +1,33 @@
+<!-- mini_insta/templates/mini_insta/show_followers.html -->
+ <!-- File: show_followers.html 
+      Author: Fibie Kalis (fibie@bu.edu) 10/17/2026 
+      Retrieve the list of profiles who follow the current Profile -->
+
+      {% extends 'mini_insta/base.html' %}
+
+      {% block content %}
+      <main class="profile-page">
+        <h1>{{ profile.display_name}}'s Followers</h1>
+
+        <!--Loops through the list returned by the accessor method-->
+        {% for follower in profile.get_followers %}
+            <article>
+                <h3>
+                    <a href="{% url 'show_profile' follower.pk %}">
+                        {{ follower.display_name }}
+                    </a>
+                </h3>
+                <p>@{{ follower.username }}</p>
+            </article>
+        <!--When the list is empty-->
+        {% empty %}
+            <p>This profile has no followers yet</p>
+        {% endfor %}
+
+        <p>
+            <a href="{% url 'show_profile' profile.pk %}">
+                Return to {{ profile.display_name }}'s profile
+            </a>
+        </p>
+      </main>
+      {% endblock %}
