@@ -23,6 +23,7 @@ urlpatterns = [
    path('profile/update', UpdateProfileView.as_view(), name='update_profile'),
    path('profile/feed', ShowFeedView.as_view(), name='show_feed'),
    path('profile/search', SearchView.as_view(), name='search'),
+   path('create_profile', CreateProfileView.as_view(), name='create_profile'),
 
    # post related
    path('post/<int:pk>/delete', DeletePostView.as_view(), name='delete_post'),

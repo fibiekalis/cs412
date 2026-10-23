@@ -9,8 +9,8 @@ from .models import *
 from django.urls import reverse 
 from django.db.models import Q      # import Q class to let a Profile match in any specified field
 from django.contrib.auth.mixins import LoginRequiredMixin ## for authentication
-
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 
 from .models import Profile, Post
@@ -33,6 +33,50 @@ class MyProfileView(LoggedInProfileMixIn, DetailView):
 
     def get_object(self, queryset = None):
         return self.get_profile()
+    
+class CreateProfileView(CreateView):
+    '''A view class to create a Profile.'''
+
+    model = Profile
+    form_class = CreateProfileForm
+    template_name = 'mini_insta/create_profile_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Create the account form 
+        if 'user_form' not in context:
+            context['user_form'] = UserCreationForm()
+        return context 
+    
+    def form_valid(self, form):
+        user_form = UserCreationForm(self.request.POST)
+        #create the user account
+        user = user_form.save()
+        # Login the new user
+        login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+        # attach this user to the newly created profile
+        form.instance.user = user 
+        # Save the profile 
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
+
+    def post(self, request, *args, **kwargs):
+        self.object = None 
+        # Get submitted profile form
+        form = self.get_form()
+        # Get the submitted user registration form
+        user_form = UserCreationForm(request.POST)
+
+        # If both forms are valid create the user and profile 
+        if form.is_valid() and user_form.is_valid():
+            return self.form_valid(form)
+        
+        # if both forms are invalid, show errors 
+        context = self.get_context_data(form=form, user_form=user_form) 
+        return self.render_to_response(context)
 
 
 # Create your views here.
@@ -70,7 +114,7 @@ class CreatePostView(LoggedInProfileMixIn, CreateView):
         # call reverse to generate the URL for this Post detail page 
         return reverse('show_post', kwargs={'pk': pk})
     
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         '''Return the dictionary to load in the template'''
 
         # Calls the superclass method
