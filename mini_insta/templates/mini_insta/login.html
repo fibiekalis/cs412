@@ -1,8 +1,24 @@
 <!-- mini_insta/templates/mini_insta/login.html -->
  <!-- File: login.html 
       Author: Fibie Kalis (fibie@bu.edu) 10/21/2026 
-      HTML file for the page where users enter their search -->
+      HTML file for the login page -->
 
       {% extends 'mini_insta/base.html' %}
 
       {% block content %}
+
+      <h1>Login to Mini Insta</h1>
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% else %}
+            <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+        {% endif %}
+
+        <input type="submit" value="Login">
+      </form>
+
+      {% endblock%}

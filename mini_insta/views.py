@@ -20,6 +20,9 @@ class LoggedInProfileMixIn(LoginRequiredMixin):
 
     def get_profile(self):
         return Profile.objects.get(user=self.request.user)
+    
+    def get_login_url(self):
+        return reverse('login')
 
 class MyProfileView(LoggedInProfileMixIn, DetailView):
     '''A view class to show the Profile of the user currently logged in'''
