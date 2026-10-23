@@ -35,4 +35,14 @@ urlpatterns = [
    # displays the logout confirmation page
    path('logged_out/', TemplateView.as_view(template_name='mini_insta/logged_out.html'), name='logout_confirmation'),
 
+   # Post (un)likes and Profile (un)follows
+   path('profile/<int:pk>/follow', FollowProfileView.as_view(), name='follow'),
+   path('profile/<int:pk>/delete_follow', DeleteFollowView.as_view(), name='delete_follow'),
+   path('post/<int:pk>/like', LikePostView.as_view(), name='like'),
+   path('post/<int:pk>/delete_like', DeleteLikeView.as_view(), name='delete_like'),
+
+
+
+
+
 ]

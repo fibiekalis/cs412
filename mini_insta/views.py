@@ -2,8 +2,8 @@
 # Author: Fibie Kalis (fibie@bu.edu), 9/28/2026
 # Views file to support the mini_insta application
 
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .forms import *
 from .models import *
 from django.urls import reverse 
@@ -92,11 +92,33 @@ class ProfileDetailView(DetailView):
     template_name = "mini_insta/show_profile.html"  # indicates which template to use to display the profile
     context_object_name = "profile"     # singular as we're only displaying one profile
 
+    # Context for show_profile template for following/unfollowing operations
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            logged_in_profile = Profile.objects.get(user=self.request.user)
+
+            context['logged_in_profile'] = logged_in_profile
+            context['is_following'] = Follow.objects.filter(profile=self.object, follower_profile=logged_in_profile).exists()
+        return context 
+
+
 class PostDetailView(DetailView):
     '''Display a single post.'''
     model = Post
     template_name = "mini_insta/show_post.html"
     context_object_name = "post"
+
+    # To know whether the logged-in user has liked the post for show_post template
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            logged_in_profile = Profile.objects.get(user=self.request.user)
+            context['logged_in_profile'] = logged_in_profile
+            context['is_liked'] = Like.objects.filter(profile=logged_in_profile, post=self.object).exists()
+        return context
+
 
 class CreatePostView(LoggedInProfileMixIn, CreateView):
     '''Create a new Post for a Profile'''
@@ -269,6 +291,72 @@ class SearchView(LoggedInProfileMixIn, ListView):
             Q(username__icontains=query) | Q(display_name__icontains=query) | Q(bio_text__icontains=query)) 
         
         return context 
+    
+class FollowProfileView(LoggedInProfileMixIn, TemplateView):
+    '''Let's the user who's logged in, follow another Profile'''
+
+    def post(self, request, *args, **kwargs):
+        # Get the logged-in user's profile
+        logged_in_profile = self.get_profile()
+        # Get the profile being followed 
+        other_profile = Profile.objects.get(pk=self.kwargs['pk']) 
+        # Don't allow following their own profile
+        if logged_in_profile != other_profile:
+            follow = Follow(profile=other_profile, follower_profile=logged_in_profile)
+            follow.save()
+        
+        return redirect(reverse('show_profile', kwargs={'pk': other_profile.pk}))
+
+class DeleteFollowView(LoggedInProfileMixIn, TemplateView):
+    '''Allows the logged-in user to unfollow a profile'''
+
+    def post(self, request, *args, **kwargs):
+        # Get the logged-in user's profile
+        logged_in_profile = self.get_profile()
+        # Get the profile being unfollowed 
+        other_profile = Profile.objects.get(pk=self.kwargs['pk']) 
+
+        # Delete the follow relationship
+        Follow.objects.filter(
+            profile=other_profile, follower_profile=logged_in_profile).delete()
+        
+        return redirect(reverse('show_profile', kwargs={'pk': other_profile.pk}))
+
+class LikePostView(LoggedInProfileMixIn, TemplateView):
+    '''Let's the logged-in user like another Profile's post'''
+
+    def post(self, request, *args, **kwargs):
+        logged_in_profile = self.get_profile()
+        # post being liked
+        post = Post.objects.get(pk=self.kwargs['pk']) 
+        # logged-in user can't like a post from their own Profile
+        if logged_in_profile != post.profile:
+            # Check if the post has been liked before by the logged-in user
+            existing_like = Like.objects.filter(profile=logged_in_profile, post=post)
+            if not existing_like.exists():
+                Like.objects.create(profile=logged_in_profile, post=post)
+
+        return redirect(reverse('show_post', kwargs={'pk': post.pk}))
+
+class DeleteLikeView(LoggedInProfileMixIn, TemplateView):
+    '''Allows the logged-in user to unlike a post after already liking it'''
+
+    def post(self, request, *args, **kwargs):
+        logged_in_profile = self.get_profile()
+        # post being unliked
+        post = Post.objects.get(pk=self.kwargs['pk']) 
+        # Delete the Like
+        Like.objects.filter(profile=logged_in_profile, post=post).delete()
+
+        return redirect(reverse('show_post', kwargs={'pk': post.pk}))
+
+
+
+
+
+
+     
+
 
 
 

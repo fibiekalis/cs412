@@ -33,6 +33,21 @@
                 </p>
             </div>
 
+            {% if request.user.is_authenticated and logged_in_profile.pk != profile.pk %}
+                <!-- If following, add button for unfollow -->
+                {% if is_following %}
+                    <form method="POST" action="{% url 'delete_follow' profile.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Unfollow">
+                    </form>
+                {% else %}
+                    <form method="POST" action="{% url 'follow' profile.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Follow">
+                    </form>
+                {% endif %}
+            {% endif %}
+
             <h3>Posts</h3>
             <p>tbd</p>
 

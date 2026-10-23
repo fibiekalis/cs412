@@ -20,6 +20,25 @@
 
             <!--Number of likes-->
             <h3>Likes: {{ post.get_likes.count }}</h3>
+
+            <!-- Like/Unlike button -->
+             {% if request.user.is_authenticated %}
+                {% if logged_in_profile.pk != post.profile.pk %}
+                    <!-- If the post is liked, give option to unlike, otherwise give option to Like -->
+                    {% if is_liked %}
+                        <form method="POST" action="{% url 'delete_like' post.pk %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Unlike">
+                        </form>
+                    {% else %}
+                        <form method="POST" action="{% url 'like' post.pk %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Like">
+                        </form>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+
             <h2>{{ post.caption }}</h2>     <!--Displays the caption-->
             <h3>{{ post.timestamp }}</h3>   <!--Displays the time the post was posted-->
 
