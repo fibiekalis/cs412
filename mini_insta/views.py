@@ -18,7 +18,7 @@ from .models import Profile, Post
 class LoggedInProfileMixIn(LoginRequiredMixin):
     '''Finds the Profile of the user currently logged in.'''
 
-    def get_profile(self):
+    def get_profile(self): 
         return Profile.objects.get(user=self.request.user)
     
     def get_login_url(self):
