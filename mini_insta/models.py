@@ -4,6 +4,7 @@
 
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Profile(models.Model):
@@ -15,7 +16,7 @@ class Profile(models.Model):
     profile_image_url = models.URLField(blank=True)
     bio_text = models.TextField(blank=True)
     join_date = models.DateTimeField(auto_now=True) # will set published field automatically to the current time
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # note: change model --> python manage.py makemigrations --> python manage.py migrate
 
     def __str__(self):
@@ -69,6 +70,8 @@ class Profile(models.Model):
         # filter only includes the posts by those in following
         posts = Post.objects.filter(profile__in=following).order_by('-timestamp')
         return posts 
+    
+
 
 
 

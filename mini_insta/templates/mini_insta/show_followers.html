@@ -13,7 +13,7 @@
         {% for follower in profile.get_followers %}
             <article>
                 <h3>
-                    <a href="{% url 'show_profile' follower.pk %}">
+                    <a href="{% url 'show_profile' profile.pk %}">
                         {{ follower.display_name }}
                     </a>
                 </h3>

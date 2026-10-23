@@ -7,7 +7,7 @@
 {% block content %}
 <h1>Create a new post for @{{profile.username}}</h1>
 
-<form action="{% url 'create_post' profile.pk %}" method="POST" enctype="multipart/form-data"> <!--Tells the browser the form contains a file-->
+<form action="{% url 'create_post' %}" method="POST" enctype="multipart/form-data"> <!--Tells the browser the form contains a file-->
     {% csrf_token %}
 
     <table>
