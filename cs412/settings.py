@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'restaurant', # A2
     'blog',  # module3 ex.
     'mini_insta',   # A3
+    'marathon_analytics',  # module7 ex.
+    'voter_analytics',
 ]
 
 MIDDLEWARE = [
