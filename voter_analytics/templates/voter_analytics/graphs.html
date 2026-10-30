@@ -1,0 +1,25 @@
+<!--Author: Fibie Kalis (fibie@bu.edu) 10/30/26-->
+<!--voter_analytics/graphs.html 
+    HTML displaying graphs -->
+
+<h1>Voter Analytics Graphs </h1>
+<a href="{% url 'voters' %}">Back to all voters</a>
+
+<h2>Filter voters</h2>
+{% include "voter_analytics/search.html" %}
+<hr>
+
+<!-- Histogram of voters dob -->
+ <div class="container">
+    <div class="row"> {{ graph_div_dob|safe }}</div>
+ </div>
+
+ <!-- Pie chart of Voters by party affiliation -->
+ <div class="container">
+    <div class="row"> {{ graph_div_party|safe }}</div>
+ </div>
+
+ <!-- Histogram of voters participation in elections-->
+ <div class="container">
+    <div class="row"> {{ graph_div_elections|safe }}</div>
+ </div>

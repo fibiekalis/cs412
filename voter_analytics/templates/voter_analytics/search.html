@@ -1,0 +1,97 @@
+<!--Author: Fibie Kalis (fibie@bu.edu) 10/29/26-->
+<!--voter_analytics/voters.html 
+    HTML for voter filters -->
+
+<form action="" method="GET">
+    <label>Party Affiliation:</label>
+    <select name="party">
+        <option value="">All Parties</option>
+
+        {% for party in parties %}
+            <option value="{{ party }}"
+                {% if selected_party == party %}selected{% endif %}>
+                {{ party }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Minimum Birth Year:</label>
+    <select name="min_year">
+        <option value="">Any</option>
+
+        {% for year in years %}
+            <option value="{{ year.year }}"
+                {% if selected_min_year == year.year|stringformat:"s" %}selected{% endif %}>
+                {{ year.year }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Maximum Birth Year:</label>
+    <select name="max_year">
+        <option value="">Any</option>
+
+        {% for year in years %}
+            <option value="{{ year.year }}"
+                {% if selected_max_year == year.year|stringformat:"s" %}selected{% endif %}>
+                {{ year.year }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Voter Score:</label>
+    <select name="score">
+        <option value="">All Scores</option>
+
+        {% for score in scores %}
+            <option value="{{ score }}"
+                {% if selected_score == score|stringformat:"s" %}selected{% endif %}>
+                {{ score }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <p>Election Participation:</p>
+
+    <input type="checkbox" name="v20state" value="yes"
+        {% if selected_v20state %}checked{% endif %}>
+    2020 State Election
+
+    <br>
+
+    <input type="checkbox" name="v21town" value="yes"
+        {% if selected_v21town %}checked{% endif %}>
+    2021 Town Election
+
+    <br>
+
+    <input type="checkbox" name="v21primary" value="yes"
+        {% if selected_v21primary %}checked{% endif %}>
+    2021 Primary
+
+    <br>
+
+    <input type="checkbox" name="v22general" value="yes"
+        {% if selected_v22general %}checked{% endif %}>
+    2022 General Election
+
+    <br>
+
+    <input type="checkbox" name="v23town" value="yes"
+        {% if selected_v23town %}checked{% endif %}>
+    2023 Town Election
+
+    <br><br>
+
+    <input type="submit" value="Search">
+    <a href="{% url 'voters' %}">Clear Filters</a>
+
+</form>

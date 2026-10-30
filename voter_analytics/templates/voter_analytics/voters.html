@@ -1,0 +1,56 @@
+<!--Author: Fibie Kalis (fibie@bu.edu) 10/28/26-->
+<!--voter_analytics/voters.html 
+    HTML form to filter voter listing-->
+
+<nav>
+    <a href="{% url 'voters' %}">All Voters</a>
+    <a href="{% url 'graphs' %}">View Voter Graphs</a>
+</nav>
+<h1>Newton Voter Analytics</h1>
+{% include "voter_analytics/search.html" %}
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Street Address</th>
+        <th>Date of Birth</th>
+        <th>Party</th>
+        <th>Voter Score</th>
+    </tr>
+
+    {% for voter in voters %}
+    <tr>
+        <td>
+            <a href="{% url 'voter' voter.pk %}">
+                {{ voter.first_name }}
+            </a>
+        </td>
+        <td>{{ voter.last_name }}</td>
+        <td>
+            {{ voter.street_number }}
+            {{ voter.street_name }}
+            {{ voter.apartment_number }}
+            {{ voter.zip_code }}
+        </td>
+        <td>{{ voter.date_of_birth|default:"Unknown" }}</td>
+        <td>{{ voter.party_affiliation }}</td>
+        <td>{{ voter.voter_score }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- Pagination -->
+{% if is_paginated %}
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <a href="?{% if filter_query %}{{ filter_query }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+{% endif %}
+
