@@ -21,5 +21,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='show_all'), name='logout'),
     path('register/', UserRegistrationView.as_view(), name='register'),
 
+    ## API Views:
+    path(r'api/articles/', ArticleListAPIView.as_view()),
+    path(r'api/article/<int:pk>', ArticleDetailAPIView.as_view()),
+
 
 ]

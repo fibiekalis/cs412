@@ -1,0 +1,28 @@
+<!-- dadjokes/templates/dadjokes/pictures.html -->
+ <!-- File: pictures.html 
+      Author: Fibie Kalis (fibie@bu.edu) 11/11/2026 
+      HTML file for displaying all pictures, no jokes.-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>All Pictures</h2>
+
+{% for picture in pictures %}
+    <h3>
+        <a href="{% url 'picture' picture.pk %}">Picture {{ picture.pk }}</a>
+    </h3>
+
+    <img src="{{ picture.image_url }}" alt="Silly picture" width="300">
+    <p>By: {{ picture.name }}</p>
+
+    <hr>
+
+{% empty %}
+    <p>No pictures available.</p>
+
+{% endfor %}
+{% endblock %}
+
+
+

@@ -1,0 +1,17 @@
+<!-- dadjokes/templates/dadjokes/picture.html -->
+ <!-- File: picture.html 
+      Author: Fibie Kalis (fibie@bu.edu) 11/11/2026 
+      HTML file for displaying one picture.-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+
+<h2>Picture {{picture.pk }}</h2>
+
+<img src="{{ picture.image_url }}" alt="Silly Picture" width="400">
+
+<p>By: {{ picture.name }}</p>
+<p>{{ picture.timestamp }}</p>
+
+{% endblock %}

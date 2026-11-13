@@ -1,0 +1,24 @@
+<!-- dadjokes/templates/dadjokes/jokes.html -->
+ <!-- File: jokes.html 
+      Author: Fibie Kalis (fibie@bu.edu) 11/11/2026 
+      HTML file for displaying all jokes, no pictures.-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>All Jokes</h2>
+
+{% for joke in jokes %}
+    <strong>
+        <a href="{% url 'joke' joke.pk %}">Joke {{ joke.pk }}</a>
+    </strong>
+    <p>{{ joke.text }}</p>
+    <p>By: {{ joke.name }}</p>
+
+    <hr>
+
+{% empty %}
+    <p>Nothing funny right now.</p>
+
+{% endfor %}
+{% endblock %}

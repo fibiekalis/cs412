@@ -1,0 +1,14 @@
+<!-- dadjokes/templates/dadjokes/joke.html -->
+ <!-- File: joke.html 
+      Author: Fibie Kalis (fibie@bu.edu) 11/11/2026 
+      HTML file for displaying one joke.-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>Joke {{ joke.pk }}</h2>
+<p>{{ joke.text }}</p>
+<p>By: {{ joke.name }}</p>
+<p>{{ joke.timestamp }}</p>
+
+{% endblock %}

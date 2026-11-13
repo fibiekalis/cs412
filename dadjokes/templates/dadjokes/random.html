@@ -1,0 +1,22 @@
+<!-- dadjokes/templates/dadjokes/random.html -->
+ <!-- File: random.html 
+      Author: Fibie Kalis (fibie@bu.edu) 11/11/2026 
+      HTML file for displaying one randomly selected joke and image -->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+
+<h2>Randome Joke</h2>
+<p>{{ joke.text }}</p>
+<p>By: {{joke.name}}</p>
+<p>{{ joke.timestamp }}</p>
+
+<hr>
+
+<h2>Random Image</h2>
+<img src="{{ picture.image_url }}" alt="Silly picture", width="300">
+<p>By: {{ picture.name }}</p>
+<p>{{ picture.timestamp }}</p>
+
+{% endblock %}

@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'mini_insta',   # A3
     'marathon_analytics',  # module7 ex.
     'voter_analytics',
+    'rest_framework',   #module9
+    'dadjokes',     #A9
 ]
 
 MIDDLEWARE = [
@@ -152,3 +154,10 @@ CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     STATIC_URL = '/fibie/static/'
     MEDIA_URL = '/fibie/media/'
+
+
+# Module 9
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination', 
+    'PAGE_SIZE': 10
+}

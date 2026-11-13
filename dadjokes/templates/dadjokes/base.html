@@ -1,0 +1,27 @@
+<!-- dadjokes/templates/dadjokes/base.html -->
+ <!-- File: base.html 
+      Author: Fibie Kalis (fibie@bu.edu) 11/11/2026 
+      HTML file for dadjokes home page -->
+
+{% load static %}
+<html>
+    <head>
+        <title>Dad Jokes!</title>
+    </head>
+
+    <body>
+        <h1>Dad Jokes and Silly Images</h1>
+
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'random' %}">Random</a>
+            <a href="{% url 'jokes' %}">All Jokes</a>
+            <a href="{% url 'pictures' %}">All Pictures</a>
+        </nav>
+        <hr>
+
+        {% block content %}
+        {% endblock %}
+        
+    </body>
+</html>
