@@ -351,6 +351,113 @@ class DeleteLikeView(LoggedInProfileMixIn, TemplateView):
         return redirect(reverse('show_post', kwargs={'pk': post.pk}))
 
 
+##################################################################################################
+# API Views 
+from rest_framework import generics, status 
+from .models import *
+from .serializers import *
+from django.contrib.auth import authenticate
+from rest_framework.views import APIView 
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+
+class ProfileListAPIView(generics.ListAPIView):
+    '''An API view to return a list of profiles.'''
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+    # Require authentication
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class ProfileDetailAPIView(generics.RetrieveAPIView):
+    '''API view to retrieve a profile using PK'''
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+    # Require authentication
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class ProfilePostsAPIView(generics.ListAPIView):
+    '''API view to return a list of all posts for a profile'''
+    serializer_class = PostSerializer 
+
+    # Require authentication
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        '''Gets all the posts for this profile'''
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        posts = profile.get_all_posts()
+        return posts
+
+
+class ProfileFeedAPIView(generics.ListAPIView):
+    '''API view to return one profile's field '''
+    serializer_class = PostSerializer
+
+    # Require authentication
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        '''Gets all the posts from the profiles this profile follows'''
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        posts = profile.get_post_feed()
+        return posts 
+    
+
+class CreatePostAPIView(generics.CreateAPIView):
+    '''API view to create a new post for a profile'''
+    serializer_class = PostSerializer
+
+    # Require authentication
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serlializer):
+        '''Associate created post with chosen profile'''
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        serlializer.save(profile=profile)
+
+
+class UserRegistrationView(generics.CreateAPIView):
+    '''Subclass of CreateAPIView, provides the functionality to create new user objects'''
+    serializer_class = UserSerializer
+
+    # Allow users to register without a token
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+## Implementing sign-in process
+class UserLoginView(APIView):
+    # Login must be accessible before a user has a token 
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        # Check username and password 
+        
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)   # Authenticate user
+        if user is not None:
+            token, created = Token.objects.get_or_create(user=user)  # Create or retrieve a token for the user
+            return Response({'token': token.key, 
+                              'user': {
+                                  'id': user.id,
+                                  'username': user.username
+                              },
+                              'profile': ProfileSerializer(profile).data 
+                              },
+                            status=status.HTTP_200_OK)
+        return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

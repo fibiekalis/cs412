@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'voter_analytics',
     'rest_framework',   #module9
     'dadjokes',     #A9
+    'rest_framework.authtoken',    #A10
 ]
 
 MIDDLEWARE = [

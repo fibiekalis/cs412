@@ -8,6 +8,8 @@ from .views import *  # ProfileListView, ProfileDetailView, PostDetailView
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView   # for logged out confirmation path
 
+from . import views    #A10
+
 
 urlpatterns = [
    # public pages/features:
@@ -42,7 +44,15 @@ urlpatterns = [
    path('post/<int:pk>/delete_like', DeleteLikeView.as_view(), name='delete_like'),
 
 
+   # REST API URLs
+   path('api/profiles', views.ProfileListAPIView.as_view(), name='api_profiles'),
+   path('api/profile/<int:pk>', views.ProfileDetailAPIView.as_view(), name='api_profile'), 
+   path('api/profile/<int:pk>/posts', views.ProfilePostsAPIView.as_view(), name='api_profile_posts'),
+   path('api/profile/<int:pk>/feed', views.ProfileFeedAPIView.as_view(), name='api_profile_feed'),
+   path('api/profile/<int:pk>/create_post', views.CreatePostAPIView.as_view(), name='api_create_post'),
 
-
+   # URLs for User Authentication
+   path('register/', UserRegistrationView.as_view(), name='register'),
+   path('login/', UserLoginView.as_view(), name='login'),
 
 ]
