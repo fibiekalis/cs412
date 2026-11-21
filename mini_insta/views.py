@@ -447,8 +447,13 @@ class UserLoginView(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         user = authenticate(username=username, password=password)   # Authenticate user
+
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)  # Create or retrieve a token for the user
+
+            # Find profile connected to this user
+            profile = Profile.objects.get(user=user)
+            
             return Response({'token': token.key, 
                               'user': {
                                   'id': user.id,

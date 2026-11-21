@@ -52,7 +52,7 @@ urlpatterns = [
    path('api/profile/<int:pk>/create_post', views.CreatePostAPIView.as_view(), name='api_create_post'),
 
    # URLs for User Authentication
-   path('register/', UserRegistrationView.as_view(), name='register'),
-   path('login/', UserLoginView.as_view(), name='login'),
+   path('api/register/', views.UserRegistrationView.as_view(), name='register'),
+   path('api/login/', views.UserLoginView.as_view(), name='login'),
 
 ]
