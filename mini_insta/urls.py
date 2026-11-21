@@ -10,6 +10,8 @@ from django.views.generic import TemplateView   # for logged out confirmation pa
 
 from . import views    #A10
 
+from django.http import JsonResponse
+
 
 urlpatterns = [
    # public pages/features:
